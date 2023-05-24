@@ -5,30 +5,39 @@ import Card from "../components/Card.astro";
 
 <Layout title="Welcome to Astro.">
 	<main>
+		<h1>In a galaxy far, far away...</h1>
+
+		<p>Custom fonts make my headings much cooler!</p>
+
+		<style>
+			h1 {
+				font-family: "DistantGalaxy", sans-serif;
+			}
+		</style>
+
 		<h1><span class="text-gradient">AstroWeb</span></h1>
 		<p class="instructions">
-			This website is about AstroWeb and how that it works.
+			Esta pagina web esta en mantenimiento, el resultado final puede ser
+			muy diferente al que esta viendo
 		</p>
 		<ul role="list" class="link-card-grid">
+			<h2 class="font-bold text-3xl text-gray-800">
+				¡Encontra todo lo que busques aca!
+			</h2>
 			<Card
 				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
+				title="Documentacion"
+				body="todos los pdf, planos e informacion importante estan aca!"
 			/>
 			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
+				href="https://docs.astro.build/"
+				title="Imagenes"
+				body="Aca se encuentran todas las imagens publicadas por la comunidad!"
 			/>
 			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Chat"
-				body="Come say hi to our amazing Discord community. ❤️"
+				href="https://docs.astro.build/"
+				title="Emails"
+				body="Todos los email disponibles para consultas!"
 			/>
 		</ul>
 	</main>
