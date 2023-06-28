@@ -18,35 +18,75 @@ const { title } = Astro.props as Props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<header>
-			<nav id="navbar">
-				<div id="logo">
-					<a> <img src="/favicon.ico" /></a>
+		<header class="">
+			<!--elementos especificos en el mismo espacio-->
+			<nav class="" id="nav" aria-label="Top">
+				<div class="logo">
+					<a href="/">
+						<img src="/favicon.ico" width="48px" alt="" />
+						<!--modifica el estilo de texto-->
+					</a>
 				</div>
+
+				<!--da los limites de la pagina-->
+				<div id="hamburger">
+					<Hamburger />
+				</div>
+				<!--menu animado-->
 				<div id="menu">
-					<a href="/layouts/pages/about.astro">inicio</a>
-					<a href="sdd">contacto</a>
+					<a href="/" class="">Home</a>
+					<a href="/about" class="">About</a>
+					<a href="/contact" class="">Contacto</a>
+					<a href="/form" class="">Formulario</a>
 				</div>
-				<div><Hamburger /></div>
 			</nav>
+			<!--insterta enlaces-->
+			<slot />
 		</header>
-		<slot />
+		<!--especifica navegacion-->
 	</body>
+	<!--modifica el aspecto de la pagina-->
 </html>
+
 <style>
-	#navbar {
-		display: flex;
-		justify-content: space-between;
-		padding: 20px;
+	#nav {
+		display: flex; /*extension y relleno de un objeto */
+		justify-content: space-between; /* aplica separacion y aliniamiento horizontal*/
+		padding: 12px 24px;
+		gap: 16px;
+		flex-wrap: wrap; /* permite que fluya en varias filas*/
 	}
-	.fondo {
-		background-color: rgb(255, 0, 0);
+	#menu {
+		display: none; /*sirve para ocultrar un valor(palabras de la pantalla) con non*/
+		gap: 8px; /*sirve ampliar espacio entre items*/
+		width: 100%; /*establece el ancho de un elemento*/
+		flex-direction: column; /*flex direction centra el elemento antes mencionado con un # */
 	}
-	@font-face {
-		font-family: "DistantGalaxy";
-		src: url("/fonts/Y2K_neophyte") format("ttf");
-		font-weight: normal;
-		font-style: normal;
-		font-display: swap;
+
+	@media (min-width: 768px) {
+		#menu {
+			display: flex; /*sirve para ocultrar un valor(palabras de la pantalla) con non*/
+			flex-direction: row; /*centra los elementos y mas un row (fila) centra las mismas*/
+			width: auto; /* width auto establece ancho automaticamente de los elementos*/
+		}
+		#hamburger {
+			display: none;
+		}
 	}
 </style>
+
+<script is:inline>
+const burger = document.getElementById("hamburger");
+
+function clickBurger() {
+	const menu = document.getElementById("menu");
+	const style = window.getComputedStyle(menu);
+	if (style.display === "none") {
+		console.log("oculto");
+		menu.style.display = "flex";
+	} else {
+		menu.style.display = "none";
+	}
+}
+burger?.addEventListener("click", clickBurger);
+</script>
