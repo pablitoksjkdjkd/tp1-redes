@@ -1,58 +1,104 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Formulario de contacto</title>
-        <style>
-            .form-container {
-                max-width: 400px;
-                margin: 0 auto;
-                padding: 20px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/container.astro";
+import Sectionhead from "../components/sectionhead.astro";
+---
+
+<Layout>
+    <div>
+        <h1 class="text-4xl">Contacto</h1>
+    </div>
+    <div class="form-container">
+        <form id="contact" action="" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" />
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" />
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje"></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <div id="dialog" class="w-96 h-96 bg-blue-600" popover>
+        Commplete los campos
+        <button
+            popovertarget="dialog"
+            popovertargetaction="hide"
+            id="cancel"
+            type="submit">Cerrar</button
+        >
+    </div>
+</Layout>
+<button popovertarget="dialog" popovertargetaction="show">Enviar</button>
+
+<style>
+    .form-container {
+        max-width: 400px;
+        margin: 15px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form-container label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .form-container input,
+    .form-container textarea {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+
+    .form-container button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+</style>
+
+<script is:inline>
+const form = document.getElementById("contact");
+form.addEventListener("submit", (event) => {
+    // stop form submission
+    event.preventDefault();
+    const pop = document.getElementById("dialog");
+    const name = form.elements.nombre;
+    const apellido = form.elements["apellido"];
+    let valido = true;
+    console.log(valido);
+    for (let i = 0; i < form.elements.length; i = i + 1) {
+        //console.log("[for]", form[i], valido);
+        if (
+            form[i].value === "" ||
+            (!valido && i !== form.elements.length - 1)
+        ) {
+            console.log(
+                "entro en",
+                form[i],
+                i,
+                form.elements.length - 1,
+                valido
+            );
+            form[i].style.borderColor = "red";
+            form[i].style.borderWidth = "1px";
+            pop.showPopover();
+                valido = false;
             }
-
-            .form-container label {
-                display: block;
-                margin-bottom: 10px;
-            }
-
-            .form-container input,
-            .form-container textarea {
-                width: 100%;
-                padding: 5px;
-                margin-bottom: 10px;
-                border-radius: 3px;
-                border: 1px solid #ccc;
-            }
-
-            .form-container button {
-                padding: 10px 20px;
-                background-color: #4caf50;
-                color: #fff;
-                border: none;
-                border-radius: 3px;
-                cursor: pointer;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="form-container">
-            <form action="" method="post">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required />
-
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required />
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required />
-
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" required></textarea>
-
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
-    </body>
-</html>
+        }
+        console.log(valido);
+    });
+</script>
